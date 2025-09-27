@@ -1,41 +1,60 @@
-stages:
-  - terraform_init
-  - terraform_plan
-  - terraform_apply
-  - deploy_lambda
+name: Deploy AWS Lambda
 
-variables:
-  AWS_REGION: "us-east-1"
+on:
+  push:
+    branches:
+      - main
 
-terraform_init:
-  image: hashicorp/terraform:1.6.0
-  stage: terraform_init
-  before_script:
-    - terraform --version
-  script:
-    - cd terraform
-    - terraform init
+env:
+  AWS_REGION: us-east-1
 
-terraform_plan:
-  image: hashicorp/terraform:1.6.0
-  stage: terraform_plan
-  script:
-    - cd terraform
-    - terraform plan
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-terraform_apply:
-  image: hashicorp/terraform:1.6.0
-  stage: terraform_apply
-  script:
-    - cd terraform
-    - terraform apply -auto-approve
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.6.0
 
-deploy_lambda:
-  image: python:3.13
-  stage: deploy_lambda
-  before_script:
-    - pip install --upgrade awscli
-  script:
-    - cd lambda
-    - zip function.zip lambda_function.py
-    - aws lambda update-function-code --function-name file-processor --zip-file fileb://function.zip --region $AWS_REGION
+      - name: Terraform Init
+        working-directory: ./terraform
+        run: terraform init
+
+      - name: Terraform Plan
+        working-directory: ./terraform
+        run: terraform plan
+
+      - name: Terraform Apply
+        working-directory: ./terraform
+        run: terraform apply -auto-approve
+
+  deploy_lambda:
+    runs-on: ubuntu-latest
+    needs: terraform
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.13
+
+      - name: Install AWS CLI
+        run: pip install --upgrade awscli
+
+      - name: Zip Lambda function
+        run: |
+          cd lambda
+          zip function.zip lambda_function.py
+
+      - name: Deploy Lambda
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws lambda update-function-code --function-name file-processor --zip-file fileb://function.zip --region $AWS_REGION
