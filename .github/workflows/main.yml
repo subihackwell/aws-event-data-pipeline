@@ -1,0 +1,45 @@
+stages:
+  - terraform_init
+  - terraform_plan
+  - terraform_apply
+  - deploy_lambda
+
+variables:
+  AWS_REGION: "us-east-1"
+
+# Terraform Initialization
+terraform_init:
+  image: hashicorp/terraform:1.6.0
+  stage: terraform_init
+  before_script:
+    - terraform --version
+  script:
+    - cd terraform
+    - terraform init
+
+# Terraform Plan
+terraform_plan:
+  image: hashicorp/terraform:1.6.0
+  stage: terraform_plan
+  script:
+    - cd terraform
+    - terraform plan
+
+# Terraform Apply
+terraform_apply:
+  image: hashicorp/terraform:1.6.0
+  stage: terraform_apply
+  script:
+    - cd terraform
+    - terraform apply -auto-approve
+
+# Lambda Deployment
+deploy_lambda:
+  image: python:3.13
+  stage: deploy_lambda
+  before_script:
+    - pip install --upgrade awscli
+  script:
+    - cd lambda
+    - zip function.zip lambda_function.py
+    - aws lambda update-function-code --function-name file-processor --zip-file fileb://function.zip --region $AWS_REGION
