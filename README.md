@@ -39,20 +39,20 @@ While this project focuses on local/cloud architecture and IaC, all components a
 # Local Testing Instructions
 
  Ensure AWS CLI is configured with access to your account.
-
-`Zip the Lambda function:
+```bash
+Zip the Lambda function:
 
 cd lambda
-zip function.zip lambda_function.py`
-
-
-`Invoke Lambda locally with a test event:
+zip function.zip lambda_function.py
+```
+```bash
+Invoke Lambda locally with a test event:
 
 aws lambda invoke \
   --function-name file-processor \
   --payload file://event.json \
   output.json`
-
+```
 
 Check output.json for results.
 
