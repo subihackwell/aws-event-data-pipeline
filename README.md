@@ -1,8 +1,8 @@
-# Event-Driven AWS Lambda Project Using Terraform
+# Event-Driven AWS Data Pipeline Using Terraform
 
 ## Project Overview
 
-This project demonstrates an event-driven architecture on AWS using Lambda, S3, and DynamoDB, with infrastructure defined via Terraform. The Lambda function processes files uploaded to S3, stores metadata in DynamoDB, and showcases best practices in cloud architecture.
+This project demonstrates an CLI based event-driven architecture on AWS using Lambda, S3, and DynamoDB, with infrastructure defined via Terraform. The Lambda function processes files uploaded to S3, stores metadata in DynamoDB, and showcases best practices in cloud architecture.
 
 While this project focuses on local/cloud architecture and IaC, all components are fully functional and tested without CI/CD deployment.
 
