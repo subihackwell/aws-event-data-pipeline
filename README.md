@@ -20,10 +20,6 @@ While this project focuses on local/cloud architecture and IaC, all components a
 
 - **Local Testing**: Lambda function tested locally using sample S3 events.
 
-# Architecture Diagram
-
-(Optional: insert a simple diagram of S3 → Lambda → DynamoDB flow here)
-
 # Skills Demonstrated
 
 - **Designing and implementing event-driven architectures on AWS**
