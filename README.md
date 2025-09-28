@@ -1,29 +1,30 @@
-Event-Driven AWS Lambda Project Using Terraform
-Project Overview
+# Event-Driven AWS Lambda Project Using Terraform
+
+## Project Overview
 
 This project demonstrates an event-driven architecture on AWS using Lambda, S3, and DynamoDB, with infrastructure defined via Terraform. The Lambda function processes files uploaded to S3, stores metadata in DynamoDB, and showcases best practices in cloud architecture.
 
 While this project focuses on local/cloud architecture and IaC, all components are fully functional and tested without CI/CD deployment.
 
-Project Highlights
+## Project Highlights
 
-AWS Lambda Function: Triggered by S3 object uploads, written in Python 3.13.
+- **AWS Lambda Function**: Triggered by S3 object uploads, written in Python 3.13.
 
-S3 Bucket Integration: Monitors file uploads and triggers the Lambda.
+- **S3 Bucket Integration**: Monitors file uploads and triggers the Lambda.
 
-DynamoDB Table: Stores file metadata for tracking and processing.
+- **DynamoDB Table**: Stores file metadata for tracking and processing.
 
-Terraform Infrastructure: All resources are defined as code for reproducibility.
+- **Terraform Infrastructure**: All resources are defined as code for reproducibility.
 
-Event-Driven Workflow: Demonstrates serverless triggers and data flow.
+- **Event-Driven Workflow**: Demonstrates serverless triggers and data flow.
 
-Local Testing: Lambda function tested locally using sample S3 events.
+- **Local Testing**: Lambda function tested locally using sample S3 events.
 
-Architecture Diagram
+# Architecture Diagram
 
 (Optional: insert a simple diagram of S3 → Lambda → DynamoDB flow here)
 
-Skills Demonstrated
+# Skills Demonstrated
 
 Designing and implementing event-driven architectures on AWS
 
