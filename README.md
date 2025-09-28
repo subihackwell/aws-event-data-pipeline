@@ -26,32 +26,32 @@ While this project focuses on local/cloud architecture and IaC, all components a
 
 # Skills Demonstrated
 
-Designing and implementing event-driven architectures on AWS
+- **Designing and implementing event-driven architectures on AWS**
 
-Working with Lambda, S3, IAM roles, and DynamoDB
+- **Working with Lambda, S3, IAM roles, and DynamoDB**
 
-Writing Infrastructure-as-Code with Terraform
+- **Writing Infrastructure-as-Code with Terraform**
 
-Local testing and debugging of serverless workflows
+- **Local testing and debugging of serverless workflows**
 
-Understanding AWS resource references and permissions
+- **Understanding AWS resource references and permissions**
 
-Local Testing Instructions
+# Local Testing Instructions
 
-Ensure AWS CLI is configured with access to your account.
+ Ensure AWS CLI is configured with access to your account.
 
-Zip the Lambda function:
+`Zip the Lambda function:
 
 cd lambda
-zip function.zip lambda_function.py
+zip function.zip lambda_function.py`
 
 
-Invoke Lambda locally with a test event:
+`Invoke Lambda locally with a test event:
 
 aws lambda invoke \
   --function-name file-processor \
   --payload file://event.json \
-  output.json
+  output.json`
 
 
 Check output.json for results.
