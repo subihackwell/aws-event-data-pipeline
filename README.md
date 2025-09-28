@@ -55,13 +55,3 @@ aws lambda invoke \
 ```
 
 Check output.json for results.
-
-Project Structure
-aws-data-pipeline/
-├─ lambda/
-│  ├─ lambda_function.py
-│  └─ function.zip
-├─ terraform/
-│  └─ main.tf
-├─ event.json
-├─ README.md
