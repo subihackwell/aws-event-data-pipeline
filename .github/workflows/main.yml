@@ -3,7 +3,7 @@ name: Deploy AWS Lambda with Terraform
 on:
   push:
     branches:
-      - main  # or your default branch
+      - main  # Trigger workflow on pushes to main
 
 jobs:
   terraform:
@@ -16,27 +16,33 @@ jobs:
       TF_VAR_aws_region: "us-east-1"
 
     steps:
-      - name: Checkout repository
+      # Step 1: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v3
 
+      # Step 2: Setup Terraform
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
-          terraform_version: 1.6.3  # or your preferred version
+          terraform_version: 1.6.3  # Use your preferred version
 
+      # Step 3: Zip Lambda function
       - name: Zip Lambda function
         run: |
           cd lambda
           zip -r function.zip lambda_function.py
 
+      # Step 4: Initialize Terraform
       - name: Terraform Init
         working-directory: terraform
         run: terraform init
 
+      # Step 5: Terraform Plan
       - name: Terraform Plan
         working-directory: terraform
         run: terraform plan -out=tfplan
 
+      # Step 6: Terraform Apply
       - name: Terraform Apply
         working-directory: terraform
         run: terraform apply -auto-approve tfplan
